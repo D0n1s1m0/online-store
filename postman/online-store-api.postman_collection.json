@@ -1,0 +1,142 @@
+{
+  "info": {
+    "name": "Online Store API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET все товары",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3001/api/products",  // ИЗМЕНИЛИ НА 3001
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001",  // ИЗМЕНИЛИ
+          "path": ["api", "products"]
+        }
+      }
+    },
+    {
+      "name": "GET товар по ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3001/api/products/1",  
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001",
+          "path": ["api", "products", "1"]
+        }
+      }
+    },
+    {
+      "name": "POST создать товар",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Новый товар\",\n  \"category\": \"Электроника\",\n  \"description\": \"Описание нового товара\",\n  \"price\": 9990,\n  \"stock\": 10,\n  \"rating\": 4.5\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/products",  // ИЗМЕНИЛИ
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001",
+          "path": ["api", "products"]
+        }
+      }
+    },
+    {
+      "name": "PATCH обновить товар",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"price\": 7990,\n  \"stock\": 15\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3001/api/products/1",  // ИЗМЕНИЛИ
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001",
+          "path": ["api", "products", "1"]
+        }
+      }
+    },
+    {
+      "name": "DELETE удалить товар",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3001/api/products/1",  // ИЗМЕНИЛИ
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001",
+          "path": ["api", "products", "1"]
+        }
+      }
+    },
+    {
+      "name": "GET с фильтрацией",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3001/api/products?category=Смартфоны&minPrice=10000&maxPrice=50000&sort=price_asc",  // ИЗМЕНИЛИ
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001",
+          "path": ["api", "products"],
+          "query": [
+            {
+              "key": "category",
+              "value": "Смартфоны"
+            },
+            {
+              "key": "minPrice",
+              "value": "10000"
+            },
+            {
+              "key": "maxPrice",
+              "value": "50000"
+            },
+            {
+              "key": "sort",
+              "value": "price_asc"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET категории",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3001/api/categories",  // ИЗМЕНИЛИ
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3001",
+          "path": ["api", "categories"]
+        }
+      }
+    }
+  ]
+}

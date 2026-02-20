@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="page">
+        <header class="header">
+            <div class="header__inner">
+                <div class="brand">🛒 MakakaStore</div>
+                <div class="header__right"> Makaka</div>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="container">
+                <div class="toolbar">
+                    <h1 class="title">Товары <span id="products-count">(0)</span></h1>
+                    <button class="btn btn--primary" id="create-btn">
+                        + Добавить товар
+                    </button>
+                </div>
+
+                <!-- Фильтры -->
+                <div class="filters">
+                    <input type="text" id="filter-category" placeholder="Категория" class="filter-input">
+                    <input type="number" id="filter-min-price" placeholder="Цена от" class="filter-input">
+                    <input type="number" id="filter-max-price" placeholder="Цена до" class="filter-input">
+                    <select id="filter-sort" class="filter-select">
+                        <option value="name">По названию</option>
+                        <option value="price_asc">Цена (возрастание)</option>
+                        <option value="price_desc">Цена (убывание)</option>
+                        <option value="rating">По рейтингу</option>
+                    </select>
+                    <label class="filter-checkbox">
+                        <input type="checkbox" id="filter-in-stock">
+                        В наличии
+                    </label>
+                    <button class="btn btn--secondary" id="clear-filters">Сбросить</button>
+                </div>
+
+                <!-- Сетка товаров -->
+                <div id="products-grid" class="products-grid"></div>
+                
+                <!-- Загрузка -->
+                <div id="loader" class="loader">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer__inner">
+                © 2026 Online Store. Практические занятия 3-4
+            </div>
+        </footer>
+    </div>
+
+    <!-- Модальное окно -->
+    <div id="modal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal__header">
+                <h2 id="modal-title" class="modal__title">Добавить товар</h2>
+                <button class="modal__close" id="modal-close">&times;</button>
+            </div>
+            <form id="product-form" class="modal__form">
+                <input type="hidden" id="product-id">
+                
+                <div class="form-group">
+                    <label for="product-name">Название *</label>
+                    <input type="text" id="product-name" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="product-category">Категория *</label>
+                    <input type="text" id="product-category" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="product-description">Описание *</label>
+                    <textarea id="product-description" class="form-control" rows="3" required></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="product-price">Цена *</label>
+                        <input type="number" id="product-price" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-stock">Количество</label>
+                        <input type="number" id="product-stock" class="form-control" value="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-rating">Рейтинг</label>
+                        <input type="number" id="product-rating" class="form-control" step="0.1" min="0" max="5" value="0">
+                    </div>
+                </div>
+                
+                <div class="modal__footer">
+                    <button type="button" class="btn btn--secondary" id="modal-cancel">Отмена</button>
+                    <button type="submit" class="btn btn--primary" id="modal-submit">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Уведомления -->
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,17 +1,24 @@
 {
-  "name": "product-card-sass",
+  "name": "online-store",
   "version": "1.0.0",
-  "description": "Карточка товара с использованием SASS (практическое занятие №1)",
-  "main": "index.js",
+  "description": "Интернет-магазин (Практики 3-4)",
+  "main": "server.js",
   "scripts": {
-    "sass": "sass scss/style.scss css/style.css --watch",
-    "sass:build": "sass scss/style.scss css/style.css --style compressed",
-    "start": "npm run sass"
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "sass": "sass src/style.scss public/css/style.css --watch",
+    "dev:all": "concurrently \"npm run dev\" \"npm run sass\"",
+    "kill": "lsof -ti:3001 | xargs kill -9 2>/dev/null || echo 'Порт 3001 свободен'",
+    "reset": "npm run kill && npm run dev"
   },
-  "keywords": ["sass", "css", "product-card", "frontend"],
-  "author": "Student",
-  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "nanoid": "^3.3.4"
+  },
   "devDependencies": {
-    "sass": "^1.69.5"
+    "nodemon": "^3.0.1",
+    "sass": "^1.69.5",
+    "concurrently": "^8.2.0"
   }
 }

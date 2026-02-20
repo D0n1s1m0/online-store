@@ -1,0 +1,479 @@
+// Черная тема
+$bg: #0a0a0a;
+$panel: #141414;
+$border: #2a2a2a;
+$text: #ffffff;
+$text-secondary: #888888;
+
+$primary: #00ff88;
+$danger: #ff4d4d;
+
+$transition: all 0.3s ease;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: $bg;
+    color: $text;
+    line-height: 1.6;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header {
+    border-bottom: 1px solid $border;
+    background: $panel;
+    
+    &__inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .brand {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $primary;
+    }
+    
+    &__right {
+        color: $text-secondary;
+    }
+}
+
+.main {
+    flex: 1;
+    padding: 40px 0;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    
+    .title {
+        font-size: 2rem;
+        
+        span {
+            color: $primary;
+            font-size: 1.5rem;
+            margin-left: 10px;
+        }
+    }
+}
+
+.filters {
+    background: $panel;
+    border: 1px solid $border;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.filter-input,
+.filter-select {
+    padding: 10px 15px;
+    background: $bg;
+    border: 1px solid $border;
+    border-radius: 8px;
+    color: $text;
+    font-size: 0.95rem;
+    min-width: 150px;
+    flex: 1 1 auto;
+    
+    &:focus {
+        outline: none;
+        border-color: $primary;
+    }
+}
+
+.filter-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    
+    input {
+        width: 18px;
+        height: 18px;
+        accent-color: $primary;
+    }
+}
+
+.btn {
+    padding: 10px 20px;
+    border: 1px solid $border;
+    border-radius: 8px;
+    background: transparent;
+    color: $text;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: $transition;
+    
+    &:hover {
+        background: rgba(255, 255, 255, 0.05);
+    }
+    
+    &--primary {
+        background: rgba($primary, 0.1);
+        border-color: rgba($primary, 0.3);
+        color: $primary;
+        
+        &:hover {
+            background: rgba($primary, 0.2);
+            box-shadow: 0 0 15px rgba($primary, 0.3);
+        }
+    }
+    
+    &--danger {
+        background: rgba($danger, 0.1);
+        border-color: rgba($danger, 0.3);
+        color: $danger;
+        
+        &:hover {
+            background: rgba($danger, 0.2);
+        }
+    }
+    
+    &--secondary {
+        &:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+    }
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background: $panel;
+    border: 1px solid $border;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: $transition;
+    
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba($primary, 0.1);
+        border-color: rgba($primary, 0.3);
+    }
+    
+    &__image {
+    height: 200px;
+    background: linear-gradient(135deg, #1a1a1a, #000);
+    overflow: hidden;
+    border-bottom: 1px solid $border;
+    
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+}
+    
+    &__content {
+        padding: 20px;
+    }
+    
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 10px;
+    }
+    
+    &__title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    
+    &__category {
+        color: $text-secondary;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    &__rating {
+        background: rgba($primary, 0.1);
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        color: $primary;
+    }
+    
+    &__description {
+        color: $text-secondary;
+        font-size: 0.95rem;
+        margin: 15px 0;
+        line-height: 1.5;
+    }
+    
+    &__details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    
+    &__price {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: $primary;
+    }
+    
+    &__stock {
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        
+        &--high {
+            background: rgba($primary, 0.1);
+            color: $primary;
+        }
+        
+        &--low {
+            background: rgba($danger, 0.1);
+            color: $danger;
+        }
+    }
+    
+    &__actions {
+        display: flex;
+        gap: 10px;
+        
+        button {
+            flex: 1;
+        }
+    }
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px;
+    background: $panel;
+    border: 1px dashed $border;
+    border-radius: 16px;
+    color: $text-secondary;
+    
+    i {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        display: block;
+    }
+}
+
+.loader {
+    text-align: center;
+    padding: 40px;
+    
+    &.hidden {
+        display: none;
+    }
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid $border;
+    border-top-color: $primary;
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+    
+    &.hidden {
+        display: none;
+    }
+}
+
+.modal {
+    background: $panel;
+    border: 1px solid $border;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    
+    &__header {
+        padding: 20px;
+        border-bottom: 1px solid $border;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    &__title {
+        font-size: 1.3rem;
+    }
+    
+    &__close {
+        width: 36px;
+        height: 36px;
+        border: 1px solid $border;
+        border-radius: 8px;
+        background: transparent;
+        color: $text;
+        font-size: 1.5rem;
+        cursor: pointer;
+        
+        &:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+    }
+    
+    &__form {
+        padding: 20px;
+    }
+    
+    &__footer {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid $border;
+    }
+}
+
+.form-group {
+    margin-bottom: 15px;
+    
+    label {
+        display: block;
+        margin-bottom: 5px;
+        color: $text-secondary;
+    }
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    background: $bg;
+    border: 1px solid $border;
+    border-radius: 8px;
+    color: $text;
+    font-size: 1rem;
+    
+    &:focus {
+        outline: none;
+        border-color: $primary;
+    }
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: $primary;
+    color: #000;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    font-weight: 500;
+    
+    &.hidden {
+        display: none;
+    }
+}
+
+.footer {
+    border-top: 1px solid $border;
+    background: $panel;
+    margin-top: 40px;
+    
+    &__inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+        color: $text-secondary;
+    }
+}
+
+@media (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .toast {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        text-align: center;
+    }
+}

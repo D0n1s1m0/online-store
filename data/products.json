@@ -1,0 +1,92 @@
+[
+  {
+    "id": "iA9ZoD",
+    "name": "Смартфон XYZ Pro",
+    "category": "Смартфоны",
+    "description": "6.7\" дисплей, 128 ГБ памяти, тройная камера 50 МП, процессор A16",
+    "price": 49990,
+    "stock": 15,
+    "rating": 4.8
+  },
+  {
+    "id": "8JA3_a",
+    "name": "Ноутбук UltraBook",
+    "category": "Ноутбуки",
+    "description": "15.6\" экран, 512GB SSD, 16GB RAM, Intel Core i7, RTX 3060",
+    "price": 89990,
+    "stock": 8,
+    "rating": 4.9
+  },
+  {
+    "id": "7vWIjy",
+    "name": "Наушники AirSound Pro",
+    "category": "Аудио",
+    "description": "Беспроводные, активное шумоподавление, 30 часов работы",
+    "price": 12990,
+    "stock": 25,
+    "rating": 4.7
+  },
+  {
+    "id": "kaXR_2",
+    "name": "Планшет TabPro 11",
+    "category": "Планшеты",
+    "description": "11\" экран, стилус в комплекте, 128GB, Wi-Fi",
+    "price": 34990,
+    "stock": 12,
+    "rating": 4.6
+  },
+  {
+    "id": "25eJ4S",
+    "name": "Умные часы Watch X",
+    "category": "Аксессуары",
+    "description": "Отслеживание здоровья, GPS, пульсометр, 7 дней работы",
+    "price": 15990,
+    "stock": 20,
+    "rating": 4.5
+  },
+  {
+    "id": "Sj_C3w",
+    "name": "Игровая консоль GameBox",
+    "category": "Игры",
+    "description": "1TB SSD, 2 геймпада, поддержка 4K",
+    "price": 45990,
+    "stock": 5,
+    "rating": 4.9
+  },
+  {
+    "id": "XpNGwX",
+    "name": "Клавиатура Mechanical Pro",
+    "category": "Периферия",
+    "description": "Механическая, RGB подсветка, свитчи Cherry MX",
+    "price": 6990,
+    "stock": 30,
+    "rating": 4.7
+  },
+  {
+    "id": "sy_sWx",
+    "name": "Мышь Gaming X",
+    "category": "Периферия",
+    "description": "16000 DPI, 8 программируемых кнопок, RGB",
+    "price": 3990,
+    "stock": 40,
+    "rating": 4.6
+  },
+  {
+    "id": "41G045",
+    "name": "Внешний диск 2TB",
+    "category": "Хранение",
+    "description": "SSD внешний, USB-C, скорость чтения 1000MB/s",
+    "price": 8990,
+    "stock": 18,
+    "rating": 4.5
+  },
+  {
+    "id": "Dr0SCW",
+    "name": "поко чикен мак нагетс",
+    "category": "телефон",
+    "description": "123",
+    "price": 100000,
+    "stock": 0,
+    "rating": 0
+  }
+]
