@@ -54,7 +54,7 @@ body {
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -66,19 +66,24 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-// Сетка для двух товаров
+// ========== СЕТКА ДЛЯ ТОВАРОВ (ГОРИЗОНТАЛЬНО) ==========
 .products-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: row;        // Товары в ряд
+    justify-content: center;    // По центру
+    align-items: stretch;       // Одинаковая высота
     gap: 30px;
+    flex-wrap: wrap;            // Если не влезают - перенос
     
     @media (max-width: 768px) {
-        grid-template-columns: 1fr;
+        flex-direction: column; // На телефоне - вертикально
+        align-items: center;
     }
 }
 
 // ========== КАРТОЧКА ТОВАРА ==========
 .product-card {
+    width: 350px;               // Фиксированная ширина
     background: white;
     border-radius: $border-radius-md;
     overflow: hidden;
