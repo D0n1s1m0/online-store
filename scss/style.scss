@@ -1,9 +1,13 @@
-// Импорт модуля для работы с цветом (для новых версий SASS)
+// Импорт модуля для работы с цветом
 @use 'sass:color';
 
-// ========== ПЕРЕМЕННЫЕ (минимум 2) ==========
-$primary-color: #4361ee;           // Основной цвет (синий)
-$secondary-color: #f72585;          // Дополнительный цвет (розовый)
+// ========== ПЕРЕМЕННЫЕ ==========
+$primary-color: #4361ee;
+$secondary-color: #f72585;
+$success-color: #4cc9f0;
+$warning-color: #f8961e;
+$dark-color: #1a1a2e;
+$light-color: #f8f9fa;
 $font-main: 'Segoe UI', Roboto, system-ui, sans-serif;
 $border-radius-md: 12px;
 $border-radius-sm: 8px;
@@ -11,8 +15,7 @@ $box-shadow-light: 0 10px 30px rgba(0, 0, 0, 0.1);
 $box-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
 $transition-base: all 0.3s ease;
 
-// ========== МИКСИНЫ (минимум 1) ==========
-// Миксин для создания адаптивных кнопок с эффектами
+// ========== МИКСИНЫ ==========
 @mixin button-variant($bg-color, $text-color: white) {
     display: inline-block;
     padding: 12px 24px;
@@ -21,26 +24,17 @@ $transition-base: all 0.3s ease;
     text-decoration: none;
     border-radius: $border-radius-sm;
     font-weight: 600;
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
     transition: $transition-base;
     border: 2px solid transparent;
     cursor: pointer;
-    text-align: center;
     
     &:hover {
-        // Используем современную функцию для затемнения
         background-color: color.adjust($bg-color, $lightness: -10%);
         transform: translateY(-3px);
         box-shadow: $box-shadow-hover;
     }
-    
-    &:active {
-        transform: translateY(-1px);
-    }
 }
 
-// Миксин для адаптивных изображений
 @mixin responsive-image {
     max-width: 100%;
     height: auto;
@@ -59,25 +53,76 @@ body {
     font-family: $font-main;
     background: linear-gradient(135deg, #4158D0 0%, #C850C0 50%, #FFCC70 100%);
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 20px;
 }
 
 .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-// ========== КАРТОЧКА ТОВАРА (с вложенной структурой) ==========
+// ========== ШАПКА ==========
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px 30px;
+    border-radius: $border-radius-md;
+    box-shadow: $box-shadow-light;
+    
+    h1 {
+        color: $dark-color;
+        font-size: 2rem;
+    }
+}
+
+.favorite-btn {
+    background: $secondary-color;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: $transition-base;
+    position: relative;
+    
+    i {
+        font-size: 1.3rem;
+    }
+    
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: $box-shadow-hover;
+    }
+    
+    .favorite-count {
+        background: white;
+        color: $secondary-color;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+}
+
+// ========== СЕТКА ТОВАРОВ ==========
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+// ========== КАРТОЧКА ТОВАРА ==========
 .product-card {
-    max-width: 350px;
-    width: 100%;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     border-radius: $border-radius-md;
@@ -86,7 +131,6 @@ body {
     transition: $transition-base;
     position: relative;
     
-    // Эффект при наведении на карточку
     &:hover {
         transform: translateY(-10px);
         box-shadow: $box-shadow-hover;
@@ -96,7 +140,6 @@ body {
         }
     }
     
-    // Вложенные элементы по БЭМ
     &__image {
         @include responsive-image;
         width: 100%;
@@ -105,36 +148,24 @@ body {
     }
     
     &__title {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         font-weight: 700;
         margin: 20px 20px 10px;
-        color: #1a1a2e;
-        position: relative;
-        
-        // Декоративная линия после заголовка (псевдоэлемент)
-        &::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, $primary-color, $secondary-color);
-            border-radius: 2px;
-            transition: width 0.3s ease;
-        }
-        
-        // Расширяем линию при наведении на заголовок
-        &:hover::after {
-            width: 100px;
-        }
+        color: $dark-color;
     }
     
     &__description {
         font-size: 0.95rem;
         color: #4a4a4a;
         line-height: 1.6;
-        margin: 0 20px 20px;
+        margin: 0 20px 10px;
+    }
+    
+    &__price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: $primary-color;
+        margin: 0 20px 15px;
     }
     
     &__actions {
@@ -145,21 +176,46 @@ body {
     
     &__button {
         flex: 1;
-        
-        // Модификатор для вторичной кнопки
-        &--secondary {
-            @include button-variant($secondary-color);
-            
-            &:hover {
-                background-color: color.adjust($secondary-color, $lightness: -10%);
-            }
-        }
-        
-        // По умолчанию используем primary стиль
         @include button-variant($primary-color);
+        font-size: 0.9rem;
+        padding: 10px 15px;
+        text-align: center;
     }
     
-    // Модификатор карточки "избранное"
+    &__favorite {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 2px solid $primary-color;
+        background: white;
+        color: $primary-color;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: $transition-base;
+        
+        i {
+            font-size: 1.2rem;
+        }
+        
+        &:hover {
+            background: $primary-color;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        &.active {
+            background: $secondary-color;
+            border-color: $secondary-color;
+            color: white;
+            
+            &:hover {
+                background: color.adjust($secondary-color, $lightness: -10%);
+            }
+        }
+    }
+    
     &--featured {
         border: 2px solid $secondary-color;
         position: relative;
@@ -183,30 +239,213 @@ body {
             animation: pulse 2s infinite;
         }
     }
+}
+
+// ========== МОДАЛЬНОЕ ОКНО ==========
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
     
-    // Медиа-запрос внутри вложенности
-    @media (max-width: 768px) {
-        max-width: 100%;
+    &.show {
+        display: flex;
+    }
+    
+    &__content {
+        background: white;
+        border-radius: $border-radius-md;
+        width: 90%;
+        max-width: 600px;
+        max-height: 80vh;
+        overflow: hidden;
+        box-shadow: $box-shadow-hover;
+        animation: modalSlideIn 0.3s ease;
+    }
+    
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background: $primary-color;
+        color: white;
         
-        &__title {
-            font-size: 1.3rem;
+        h2 {
+            font-size: 1.5rem;
+        }
+    }
+    
+    &__close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        line-height: 1;
+        
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+    
+    &__body {
+        padding: 20px;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+    
+    &__footer {
+        padding: 20px;
+        border-top: 1px solid #ddd;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+    }
+    
+    &__button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: $border-radius-sm;
+        cursor: pointer;
+        font-weight: 600;
+        transition: $transition-base;
+        
+        &--clear {
+            background: #dc3545;
+            color: white;
+            
+            &:hover {
+                background: color.adjust(#dc3545, $lightness: -10%);
+            }
         }
         
-        &__actions {
-            flex-direction: column;
+        &--close {
+            background: $primary-color;
+            color: white;
+            
+            &:hover {
+                background: color.adjust($primary-color, $lightness: -10%);
+            }
         }
     }
 }
 
-// Анимация для избранной карточки
+// ========== ЭЛЕМЕНТЫ В ИЗБРАННОМ ==========
+.favorite-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    
+    &:last-child {
+        border-bottom: none;
+    }
+    
+    img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: $border-radius-sm;
+    }
+    
+    &__info {
+        flex: 1;
+        
+        h4 {
+            margin-bottom: 5px;
+            color: $dark-color;
+        }
+        
+        p {
+            color: $primary-color;
+            font-weight: bold;
+        }
+    }
+    
+    &__remove {
+        background: none;
+        border: none;
+        color: #dc3545;
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 5px;
+        
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+}
+
+// ========== УВЕДОМЛЕНИЕ ==========
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: $success-color;
+    color: white;
+    padding: 15px 25px;
+    border-radius: $border-radius-sm;
+    box-shadow: $box-shadow-hover;
+    transform: translateX(400px);
+    transition: transform 0.3s ease;
+    z-index: 2000;
+    
+    &.show {
+        transform: translateX(0);
+    }
+}
+
+// ========== АНИМАЦИИ ==========
 @keyframes pulse {
-    0% {
-        transform: scale(1);
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
     }
-    50% {
-        transform: scale(1.1);
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
-    100% {
-        transform: scale(1);
+}
+
+// ========== АДАПТИВНОСТЬ ==========
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        
+        h1 {
+            font-size: 1.5rem;
+        }
+    }
+    
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal__content {
+        width: 95%;
+    }
+    
+    .modal__footer {
+        flex-direction: column;
+        
+        button {
+            width: 100%;
+        }
     }
 }

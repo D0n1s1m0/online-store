@@ -3,32 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Карточка товара | Практика 1</title>
+    <title>Карточка товара | Избранное</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <!-- Обычная карточка товара -->
-        <div class="product-card">
-            <img src="images/product.jpg" alt="Смартфон" class="product-card__image">
-            <h3 class="product-card__title">Смартфон XYZ Pro</h3>
-            <p class="product-card__description">6.7-дюймовый дисплей, 128 ГБ памяти, тройная камера 50 МП</p>
-            <div class="product-card__actions">
-                <a href="#" class="product-card__button">Подробнее</a>
-                <a href="#" class="product-card__button product-card__button--secondary">В корзину</a>
-            </div>
+        <!-- Шапка с кнопкой избранного -->
+        <div class="header">
+            <h1>Наши товары</h1>
+            <button class="favorite-btn" id="favoriteBtn">
+                <i class="fa-regular fa-star"></i>
+                <span class="favorite-count" id="favoriteCount">0</span>
+            </button>
         </div>
 
-        <!-- Карточка с модификатором "featured" (избранное) -->
-        <div class="product-card product-card--featured">
-            <img src="images/product.jpg" alt="Смартфон" class="product-card__image">
-            <h3 class="product-card__title">Смартфон XYZ Pro</h3>
-            <p class="product-card__description">6.7-дюймовый дисплей, 128 ГБ памяти, тройная камера 50 МП</p>
-            <div class="product-card__actions">
-                <a href="#" class="product-card__button">Подробнее</a>
-                <a href="#" class="product-card__button product-card__button--secondary">В корзину</a>
+        <!-- Карточки товаров -->
+        <div class="products-grid">
+            <!-- Товар 1 -->
+            <div class="product-card" data-id="1">
+                <img src="images/product-1.jpg" alt="Смартфон" class="product-card__image">
+                <h3 class="product-card__title">Смартфон XYZ Pro</h3>
+                <p class="product-card__description">6.7" дисплей, 128 ГБ, тройная камера</p>
+                <div class="product-card__price">49 990 ₽</div>
+                <div class="product-card__actions">
+                    <a href="#" class="product-card__button">Подробнее</a>
+                    <button class="product-card__favorite" data-id="1">
+                        <i class="fa-regular fa-star"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Товар 2 -->
+            <div class="product-card" data-id="2">
+                <img src="images/product-2.jpg" alt="Ноутбук" class="product-card__image">
+                <h3 class="product-card__title">Ноутбук UltraBook</h3>
+                <p class="product-card__description">16" экран, 512GB SSD, 16GB RAM</p>
+                <div class="product-card__price">89 990 ₽</div>
+                <div class="product-card__actions">
+                    <a href="#" class="product-card__button">Подробнее</a>
+                    <button class="product-card__favorite" data-id="2">
+                        <i class="fa-regular fa-star"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Товар 3 -->
+            <div class="product-card" data-id="3">
+                <img src="images/product-3.jpg" alt="Наушники" class="product-card__image">
+                <h3 class="product-card__title">Наушники AirSound</h3>
+                <p class="product-card__description">Беспроводные, шумоподавление</p>
+                <div class="product-card__price">12 990 ₽</div>
+                <div class="product-card__actions">
+                    <a href="#" class="product-card__button">Подробнее</a>
+                    <button class="product-card__favorite" data-id="3">
+                        <i class="fa-regular fa-star"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Товар 4 (изначально избранный) -->
+            <div class="product-card product-card--featured" data-id="4">
+                <img src="images/product-4.jpg" alt="Планшет" class="product-card__image">
+                <h3 class="product-card__title">Планшет TabPro</h3>
+                <p class="product-card__description">11" экран, стилус в комплекте</p>
+                <div class="product-card__price">34 990 ₽</div>
+                <div class="product-card__actions">
+                    <a href="#" class="product-card__button">Подробнее</a>
+                    <button class="product-card__favorite active" data-id="4">
+                        <i class="fa-solid fa-star"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Модальное окно с избранными товарами -->
+    <div class="modal" id="favoriteModal">
+        <div class="modal__content">
+            <div class="modal__header">
+                <h2>Избранные товары</h2>
+                <button class="modal__close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal__body" id="favoritesList">
+                <!-- Сюда будут подгружаться избранные товары -->
+            </div>
+            <div class="modal__footer">
+                <button class="modal__button modal__button--clear" id="clearFavorites">Очистить всё</button>
+                <button class="modal__button modal__button--close" id="closeModalBtn">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Уведомление -->
+    <div class="toast" id="toast">Товар добавлен в избранное</div>
+
+    <!-- Подключаем JavaScript -->
+    <script src="js/favorites.js"></script>
 </body>
 </html>
