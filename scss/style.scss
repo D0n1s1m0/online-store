@@ -1,5 +1,6 @@
-// Импорт модуля для работы с цветом
+// Импорт модулей SASS
 @use 'sass:color';
+@use 'sass:map';
 
 // ========== ПЕРЕМЕННЫЕ ==========
 $colors: (
@@ -13,11 +14,15 @@ $colors: (
   white: #ffffff
 );
 
-$primary-color: map-get($colors, primary);
-$secondary-color: map-get($colors, secondary);
-$dark-color: map-get($colors, dark);
-$light-color: map-get($colors, light);
-$gray-color: map-get($colors, gray);
+// Получаем цвета через map.get
+$primary-color: map.get($colors, primary);
+$secondary-color: map.get($colors, secondary);
+$warning-color: map.get($colors, warning);
+$dark-color: map.get($colors, dark);
+$light-color: map.get($colors, light);
+$gray-color: map.get($colors, gray);
+$white-color: map.get($colors, white);
+$success-color: map.get($colors, success);
 
 $font-main: 'Inter', 'Segoe UI', Roboto, system-ui, sans-serif;
 $border-radius-md: 24px;
