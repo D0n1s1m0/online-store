@@ -1,0 +1,17 @@
+{
+  "name": "product-card-sass",
+  "version": "1.0.0",
+  "description": "Карточка товара с использованием SASS (практическое занятие №1)",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass scss/style.scss css/style.css --watch",
+    "sass:build": "sass scss/style.scss css/style.css --style compressed",
+    "start": "npm run sass"
+  },
+  "keywords": ["sass", "css", "product-card", "frontend"],
+  "author": "Student",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.69.5"
+  }
+}

@@ -1,0 +1,212 @@
+// Импорт модуля для работы с цветом (для новых версий SASS)
+@use 'sass:color';
+
+// ========== ПЕРЕМЕННЫЕ (минимум 2) ==========
+$primary-color: #4361ee;           // Основной цвет (синий)
+$secondary-color: #f72585;          // Дополнительный цвет (розовый)
+$font-main: 'Segoe UI', Roboto, system-ui, sans-serif;
+$border-radius-md: 12px;
+$border-radius-sm: 8px;
+$box-shadow-light: 0 10px 30px rgba(0, 0, 0, 0.1);
+$box-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+$transition-base: all 0.3s ease;
+
+// ========== МИКСИНЫ (минимум 1) ==========
+// Миксин для создания адаптивных кнопок с эффектами
+@mixin button-variant($bg-color, $text-color: white) {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: $bg-color;
+    color: $text-color;
+    text-decoration: none;
+    border-radius: $border-radius-sm;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    transition: $transition-base;
+    border: 2px solid transparent;
+    cursor: pointer;
+    text-align: center;
+    
+    &:hover {
+        // Используем современную функцию для затемнения
+        background-color: color.adjust($bg-color, $lightness: -10%);
+        transform: translateY(-3px);
+        box-shadow: $box-shadow-hover;
+    }
+    
+    &:active {
+        transform: translateY(-1px);
+    }
+}
+
+// Миксин для адаптивных изображений
+@mixin responsive-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+// ========== ОСНОВНЫЕ СТИЛИ ==========
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $font-main;
+    background: linear-gradient(135deg, #4158D0 0%, #C850C0 50%, #FFCC70 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+// ========== КАРТОЧКА ТОВАРА (с вложенной структурой) ==========
+.product-card {
+    max-width: 350px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: $border-radius-md;
+    overflow: hidden;
+    box-shadow: $box-shadow-light;
+    transition: $transition-base;
+    position: relative;
+    
+    // Эффект при наведении на карточку
+    &:hover {
+        transform: translateY(-10px);
+        box-shadow: $box-shadow-hover;
+        
+        .product-card__image {
+            transform: scale(1.05);
+        }
+    }
+    
+    // Вложенные элементы по БЭМ
+    &__image {
+        @include responsive-image;
+        width: 100%;
+        height: 250px;
+        transition: transform 0.5s ease;
+    }
+    
+    &__title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 20px 20px 10px;
+        color: #1a1a2e;
+        position: relative;
+        
+        // Декоративная линия после заголовка (псевдоэлемент)
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, $primary-color, $secondary-color);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        
+        // Расширяем линию при наведении на заголовок
+        &:hover::after {
+            width: 100px;
+        }
+    }
+    
+    &__description {
+        font-size: 0.95rem;
+        color: #4a4a4a;
+        line-height: 1.6;
+        margin: 0 20px 20px;
+    }
+    
+    &__actions {
+        display: flex;
+        gap: 10px;
+        padding: 0 20px 20px;
+    }
+    
+    &__button {
+        flex: 1;
+        
+        // Модификатор для вторичной кнопки
+        &--secondary {
+            @include button-variant($secondary-color);
+            
+            &:hover {
+                background-color: color.adjust($secondary-color, $lightness: -10%);
+            }
+        }
+        
+        // По умолчанию используем primary стиль
+        @include button-variant($primary-color);
+    }
+    
+    // Модификатор карточки "избранное"
+    &--featured {
+        border: 2px solid $secondary-color;
+        position: relative;
+        
+        &::before {
+            content: '★';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: $secondary-color;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            z-index: 10;
+            box-shadow: $box-shadow-light;
+            animation: pulse 2s infinite;
+        }
+    }
+    
+    // Медиа-запрос внутри вложенности
+    @media (max-width: 768px) {
+        max-width: 100%;
+        
+        &__title {
+            font-size: 1.3rem;
+        }
+        
+        &__actions {
+            flex-direction: column;
+        }
+    }
+}
+
+// Анимация для избранной карточки
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
