@@ -244,23 +244,25 @@ body {
     }
     
     &.active {
-      opacity: 1;
-      transform: scale(1);
-      background: $primary-color;
-      
-      i {
-        color: $dark-1;
-      }
-      
-      &:hover {
-        background: $secondary-color;
-        border-color: $secondary-color;
-        
-        i {
-          color: $dark-1;
-        }
-      }
+  opacity: 1;
+  transform: scale(1);
+  background: transparent;
+  border-color: $secondary-color;
+  box-shadow: 0 0 15px $secondary-color;
+  
+  i {
+    color: $secondary-color;  // Розовая неоновая звезда
+    text-shadow: 0 0 10px $secondary-color;
+  }
+  
+  &:hover {
+    background: $secondary-color;
+    
+    i {
+      color: $dark-1;
     }
+  }
+}
   }
   
   &__badge {
