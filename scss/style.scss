@@ -4,42 +4,39 @@
 // ========== ПЕРЕМЕННЫЕ ==========
 $primary-color: #4361ee;
 $secondary-color: #f72585;
-$success-color: #4cc9f0;
-$warning-color: #f8961e;
-$dark-color: #1a1a2e;
-$light-color: #f8f9fa;
 $font-main: 'Segoe UI', Roboto, system-ui, sans-serif;
-$border-radius-md: 12px;
+$border-radius-md: 16px;
 $border-radius-sm: 8px;
 $box-shadow-light: 0 10px 30px rgba(0, 0, 0, 0.1);
 $box-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
 $transition-base: all 0.3s ease;
 
 // ========== МИКСИНЫ ==========
-@mixin button-variant($bg-color, $text-color: white) {
+@mixin button-base {
     display: inline-block;
-    padding: 12px 24px;
-    background-color: $bg-color;
-    color: $text-color;
+    padding: 12px 30px;
+    background-color: $primary-color;
+    color: white;
     text-decoration: none;
-    border-radius: $border-radius-sm;
+    border-radius: 50px;
     font-weight: 600;
     transition: $transition-base;
-    border: 2px solid transparent;
+    border: none;
     cursor: pointer;
+    font-size: 1rem;
     
     &:hover {
-        background-color: color.adjust($bg-color, $lightness: -10%);
+        background-color: color.adjust($primary-color, $lightness: -10%);
         transform: translateY(-3px);
         box-shadow: $box-shadow-hover;
     }
 }
 
 @mixin responsive-image {
-    max-width: 100%;
-    height: auto;
-    display: block;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    display: block;
 }
 
 // ========== ОСНОВНЫЕ СТИЛИ ==========
@@ -51,164 +48,101 @@ $transition-base: all 0.3s ease;
 
 body {
     font-family: $font-main;
-    background: linear-gradient(135deg, #4158D0 0%, #C850C0 50%, #FFCC70 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
-    padding: 20px;
+    padding: 40px 20px;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
-// ========== ШАПКА ==========
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 20px 30px;
-    border-radius: $border-radius-md;
-    box-shadow: $box-shadow-light;
-    
-    h1 {
-        color: $dark-color;
-        font-size: 2rem;
-    }
-}
-
-.favorite-btn {
-    background: $secondary-color;
+.page-title {
+    text-align: center;
     color: white;
-    border: none;
-    border-radius: 50px;
-    padding: 12px 25px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: $transition-base;
-    position: relative;
-    
-    i {
-        font-size: 1.3rem;
-    }
-    
-    &:hover {
-        transform: scale(1.05);
-        box-shadow: $box-shadow-hover;
-    }
-    
-    .favorite-count {
-        background: white;
-        color: $secondary-color;
-        border-radius: 50%;
-        width: 25px;
-        height: 25px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-    }
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-// ========== СЕТКА ТОВАРОВ ==========
+// Сетка для двух товаров
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
+    
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 // ========== КАРТОЧКА ТОВАРА ==========
 .product-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: white;
     border-radius: $border-radius-md;
     overflow: hidden;
     box-shadow: $box-shadow-light;
     transition: $transition-base;
-    position: relative;
     
     &:hover {
         transform: translateY(-10px);
         box-shadow: $box-shadow-hover;
-        
-        .product-card__image {
-            transform: scale(1.05);
-        }
+    }
+    
+    &__image-wrapper {
+        position: relative;
+        height: 250px;
+        overflow: hidden;
     }
     
     &__image {
         @include responsive-image;
-        width: 100%;
-        height: 250px;
         transition: transform 0.5s ease;
-    }
-    
-    &__title {
-        font-size: 1.3rem;
-        font-weight: 700;
-        margin: 20px 20px 10px;
-        color: $dark-color;
-    }
-    
-    &__description {
-        font-size: 0.95rem;
-        color: #4a4a4a;
-        line-height: 1.6;
-        margin: 0 20px 10px;
-    }
-    
-    &__price {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: $primary-color;
-        margin: 0 20px 15px;
-    }
-    
-    &__actions {
-        display: flex;
-        gap: 10px;
-        padding: 0 20px 20px;
-    }
-    
-    &__button {
-        flex: 1;
-        @include button-variant($primary-color);
-        font-size: 0.9rem;
-        padding: 10px 15px;
-        text-align: center;
+        
+        .product-card:hover & {
+            transform: scale(1.1);
+        }
     }
     
     &__favorite {
+        position: absolute;
+        top: 15px;
+        right: 15px;
         width: 45px;
         height: 45px;
         border-radius: 50%;
-        border: 2px solid $primary-color;
         background: white;
-        color: $primary-color;
+        border: none;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
+        box-shadow: $box-shadow-light;
         transition: $transition-base;
+        z-index: 10;
         
         i {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            color: #666;
+            transition: $transition-base;
         }
         
         &:hover {
-            background: $primary-color;
-            color: white;
             transform: scale(1.1);
+            background: $secondary-color;
+            
+            i {
+                color: white;
+            }
         }
         
         &.active {
             background: $secondary-color;
-            border-color: $secondary-color;
-            color: white;
+            
+            i {
+                color: white;
+            }
             
             &:hover {
                 background: color.adjust($secondary-color, $lightness: -10%);
@@ -216,171 +150,34 @@ body {
         }
     }
     
-    &--featured {
-        border: 2px solid $secondary-color;
-        position: relative;
-        
-        &::before {
-            content: '★';
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: $secondary-color;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            z-index: 10;
-            box-shadow: $box-shadow-light;
-            animation: pulse 2s infinite;
-        }
-    }
-}
-
-// ========== МОДАЛЬНОЕ ОКНО ==========
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-    
-    &.show {
-        display: flex;
-    }
-    
     &__content {
-        background: white;
-        border-radius: $border-radius-md;
-        width: 90%;
-        max-width: 600px;
-        max-height: 80vh;
-        overflow: hidden;
-        box-shadow: $box-shadow-hover;
-        animation: modalSlideIn 0.3s ease;
-    }
-    
-    &__header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         padding: 20px;
-        background: $primary-color;
-        color: white;
-        
-        h2 {
-            font-size: 1.5rem;
-        }
     }
     
-    &__close {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 2rem;
-        cursor: pointer;
-        line-height: 1;
-        
-        &:hover {
-            transform: scale(1.2);
-        }
+    &__title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #333;
     }
     
-    &__body {
-        padding: 20px;
-        max-height: 400px;
-        overflow-y: auto;
+    &__description {
+        font-size: 0.9rem;
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 15px;
     }
     
-    &__footer {
-        padding: 20px;
-        border-top: 1px solid #ddd;
-        display: flex;
-        gap: 10px;
-        justify-content: flex-end;
+    &__price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: $primary-color;
+        margin-bottom: 15px;
     }
     
     &__button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: $border-radius-sm;
-        cursor: pointer;
-        font-weight: 600;
-        transition: $transition-base;
-        
-        &--clear {
-            background: #dc3545;
-            color: white;
-            
-            &:hover {
-                background: color.adjust(#dc3545, $lightness: -10%);
-            }
-        }
-        
-        &--close {
-            background: $primary-color;
-            color: white;
-            
-            &:hover {
-                background: color.adjust($primary-color, $lightness: -10%);
-            }
-        }
-    }
-}
-
-// ========== ЭЛЕМЕНТЫ В ИЗБРАННОМ ==========
-.favorite-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-    
-    &:last-child {
-        border-bottom: none;
-    }
-    
-    img {
-        width: 60px;
-        height: 60px;
-        object-fit: cover;
-        border-radius: $border-radius-sm;
-    }
-    
-    &__info {
-        flex: 1;
-        
-        h4 {
-            margin-bottom: 5px;
-            color: $dark-color;
-        }
-        
-        p {
-            color: $primary-color;
-            font-weight: bold;
-        }
-    }
-    
-    &__remove {
-        background: none;
-        border: none;
-        color: #dc3545;
-        font-size: 1.2rem;
-        cursor: pointer;
-        padding: 5px;
-        
-        &:hover {
-            transform: scale(1.2);
-        }
+        @include button-base;
+        width: 100%;
     }
 }
 
@@ -389,63 +186,28 @@ body {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    background: $success-color;
+    background: $primary-color;
     color: white;
     padding: 15px 25px;
-    border-radius: $border-radius-sm;
+    border-radius: 50px;
     box-shadow: $box-shadow-hover;
     transform: translateX(400px);
     transition: transform 0.3s ease;
-    z-index: 2000;
+    z-index: 1000;
+    font-weight: 500;
     
     &.show {
         transform: translateX(0);
     }
-}
-
-// ========== АНИМАЦИИ ==========
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-
-@keyframes modalSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-// ========== АДАПТИВНОСТЬ ==========
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        gap: 15px;
+    
+    @media (max-width: 768px) {
+        left: 20px;
+        right: 20px;
+        transform: translateY(400px);
         text-align: center;
         
-        h1 {
-            font-size: 1.5rem;
-        }
-    }
-    
-    .products-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .modal__content {
-        width: 95%;
-    }
-    
-    .modal__footer {
-        flex-direction: column;
-        
-        button {
-            width: 100%;
+        &.show {
+            transform: translateY(0);
         }
     }
 }
