@@ -12,13 +12,15 @@
     "reset": "npm run kill && npm run dev"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "nanoid": "^3.3.4"
+    "cors": "^2.8.6",
+    "express": "^4.22.1",
+    "nanoid": "^3.3.11",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1",
-    "sass": "^1.69.5",
-    "concurrently": "^8.2.0"
+    "concurrently": "^8.2.0",
+    "nodemon": "^3.1.14",
+    "sass": "^1.69.5"
   }
 }
