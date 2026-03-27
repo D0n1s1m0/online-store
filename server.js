@@ -13,7 +13,7 @@ const PORT = 3001;
 
 // ========== НАСТРОЙКА CORS ==========
 app.use(cors({
-    origin: ['http://localhost:3001', 'http://127.0.0.1:3001'],
+    origin: ['http://localhost:3001', 'http://127.0.0.1:3001', 'http://localhost:3000'],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -96,8 +96,8 @@ const swaggerOptions = {
                         },
                         image: {
                             type: 'string',
-                            description: 'Путь к изображению товара',
-                            example: '/images/product-1.jpg'
+                            description: 'URL изображения товара',
+                            example: 'https://example.com/image.jpg'
                         }
                     }
                 },
@@ -113,14 +113,19 @@ const swaggerOptions = {
             }
         }
     },
-    // Путь к файлам с JSDoc комментариями
     apis: ['./server.js'],
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
-// Подключаем Swagger UI по адресу /api-docs
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// Подключаем Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+    explorer: true,
+    swaggerOptions: {
+        persistAuthorization: true,
+        displayRequestDuration: true,
+    }
+}));
 
 // ========== ГЛАВНАЯ СТРАНИЦА ==========
 app.get('/', (req, res) => {
@@ -211,7 +216,7 @@ try {
         products = JSON.parse(data);
         console.log(`✅ Загружено ${products.length} товаров`);
     } else {
-        // 10+ товаров как в задании
+        // 10+ товаров с изображениями
         products = [
             {
                 id: nanoid(6),
@@ -221,7 +226,7 @@ try {
                 price: 49990,
                 stock: 15,
                 rating: 4.8,
-                image: '/images/product-1.jpg'
+                image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400'
             },
             {
                 id: nanoid(6),
@@ -231,7 +236,7 @@ try {
                 price: 89990,
                 stock: 8,
                 rating: 4.9,
-                image: '/images/product-2.jpg'
+                image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400'
             },
             {
                 id: nanoid(6),
@@ -241,7 +246,7 @@ try {
                 price: 12990,
                 stock: 25,
                 rating: 4.7,
-                image: '/images/product-3.jpg'
+                image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400'
             },
             {
                 id: nanoid(6),
@@ -251,7 +256,7 @@ try {
                 price: 34990,
                 stock: 12,
                 rating: 4.6,
-                image: '/images/product-4.jpg'
+                image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400'
             },
             {
                 id: nanoid(6),
@@ -261,7 +266,7 @@ try {
                 price: 15990,
                 stock: 20,
                 rating: 4.5,
-                image: '/images/product-5.jpg'
+                image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400'
             },
             {
                 id: nanoid(6),
@@ -271,7 +276,7 @@ try {
                 price: 45990,
                 stock: 5,
                 rating: 4.9,
-                image: '/images/product-6.jpg'
+                image: 'https://images.unsplash.com/photo-1486572788966-cfd3df1f5b42?w=400'
             },
             {
                 id: nanoid(6),
@@ -281,7 +286,7 @@ try {
                 price: 39990,
                 stock: 7,
                 rating: 4.8,
-                image: '/images/product-7.jpg'
+                image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400'
             },
             {
                 id: nanoid(6),
@@ -291,7 +296,7 @@ try {
                 price: 6990,
                 stock: 30,
                 rating: 4.7,
-                image: '/images/product-8.jpg'
+                image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400'
             },
             {
                 id: nanoid(6),
@@ -301,7 +306,7 @@ try {
                 price: 3990,
                 stock: 40,
                 rating: 4.6,
-                image: '/images/product-9.jpg'
+                image: 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=400'
             },
             {
                 id: nanoid(6),
@@ -311,9 +316,10 @@ try {
                 price: 8990,
                 stock: 18,
                 rating: 4.5,
-                image: '/images/product-10.jpg'
+                image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=400'
             }
         ];
+        saveToFile();
     }
 } catch (error) {
     console.error('Ошибка загрузки данных:', error);
@@ -328,7 +334,7 @@ function saveToFile() {
     }
 }
 
-// ========== API МАРШРУТЫ С SWAGGER ДОКУМЕНТАЦИЕЙ ==========
+// ========== API МАРШРУТЫ ==========
 
 /**
  * @swagger
@@ -378,23 +384,14 @@ function saveToFile() {
  *               properties:
  *                 success:
  *                   type: boolean
- *                   example: true
  *                 count:
  *                   type: integer
- *                   description: Количество товаров в ответе
  *                 total:
  *                   type: integer
- *                   description: Общее количество товаров
  *                 data:
  *                   type: array
  *                   items:
  *                     $ref: '#/components/schemas/Product'
- *       500:
- *         description: Ошибка сервера
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
  */
 app.get('/api/products', (req, res) => {
     try {
@@ -451,15 +448,10 @@ app.get('/api/products', (req, res) => {
  *               properties:
  *                 success:
  *                   type: boolean
- *                   example: true
  *                 data:
  *                   $ref: '#/components/schemas/Product'
  *       404:
  *         description: Товар не найден
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
  */
 app.get('/api/products/:id', (req, res) => {
     const product = products.find(p => p.id === req.params.id);
@@ -489,44 +481,26 @@ app.get('/api/products/:id', (req, res) => {
  *             properties:
  *               name:
  *                 type: string
- *                 example: "Новый товар"
  *               category:
  *                 type: string
- *                 example: "Электроника"
  *               description:
  *                 type: string
- *                 example: "Описание нового товара"
  *               price:
  *                 type: number
- *                 example: 9990
  *               stock:
  *                 type: integer
- *                 example: 10
  *               rating:
  *                 type: number
- *                 example: 4.5
+ *               image:
+ *                 type: string
  *     responses:
  *       201:
  *         description: Товар успешно создан
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 data:
- *                   $ref: '#/components/schemas/Product'
  *       400:
  *         description: Ошибка валидации
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
  */
 app.post('/api/products', (req, res) => {
-    const { name, category, description, price, stock, rating } = req.body;
+    const { name, category, description, price, stock, rating, image } = req.body;
 
     if (!name || !category || !description || !price) {
         return res.status(400).json({ error: 'Заполните обязательные поля' });
@@ -539,7 +513,8 @@ app.post('/api/products', (req, res) => {
         description: description.trim(),
         price: Number(price),
         stock: stock ? Number(stock) : 0,
-        rating: rating ? Number(rating) : 0
+        rating: rating ? Number(rating) : 0,
+        image: image || null
     };
 
     products.push(newProduct);
@@ -560,7 +535,6 @@ app.post('/api/products', (req, res) => {
  *         required: true
  *         schema:
  *           type: string
- *         description: ID товара
  *     requestBody:
  *       required: true
  *       content:
@@ -570,41 +544,23 @@ app.post('/api/products', (req, res) => {
  *             properties:
  *               name:
  *                 type: string
- *                 example: "Обновленное название"
  *               category:
  *                 type: string
- *                 example: "Новая категория"
  *               description:
  *                 type: string
- *                 example: "Обновленное описание"
  *               price:
  *                 type: number
- *                 example: 7990
  *               stock:
  *                 type: integer
- *                 example: 15
  *               rating:
  *                 type: number
- *                 example: 4.7
+ *               image:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Товар успешно обновлен
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 data:
- *                   $ref: '#/components/schemas/Product'
  *       404:
  *         description: Товар не найден
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
  */
 app.patch('/api/products/:id', (req, res) => {
     const product = products.find(p => p.id === req.params.id);
@@ -612,7 +568,7 @@ app.patch('/api/products/:id', (req, res) => {
         return res.status(404).json({ error: 'Товар не найден' });
     }
 
-    const { name, category, description, price, stock, rating } = req.body;
+    const { name, category, description, price, stock, rating, image } = req.body;
 
     if (name) product.name = name.trim();
     if (category) product.category = category.trim();
@@ -620,6 +576,7 @@ app.patch('/api/products/:id', (req, res) => {
     if (price) product.price = Number(price);
     if (stock !== undefined) product.stock = Number(stock);
     if (rating) product.rating = Number(rating);
+    if (image !== undefined) product.image = image;
 
     saveToFile();
     res.json({ success: true, data: product });
@@ -637,16 +594,11 @@ app.patch('/api/products/:id', (req, res) => {
  *         required: true
  *         schema:
  *           type: string
- *         description: ID товара
  *     responses:
  *       204:
- *         description: Товар успешно удален (нет тела ответа)
+ *         description: Товар успешно удален
  *       404:
  *         description: Товар не найден
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
  */
 app.delete('/api/products/:id', (req, res) => {
     const exists = products.some(p => p.id === req.params.id);
@@ -668,22 +620,6 @@ app.delete('/api/products/:id', (req, res) => {
  *     responses:
  *       200:
  *         description: Список категорий
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 count:
- *                   type: integer
- *                   example: 8
- *                 data:
- *                   type: array
- *                   items:
- *                     type: string
- *                     example: "Смартфоны"
  */
 app.get('/api/categories', (req, res) => {
     const categories = [...new Set(products.map(p => p.category))];
@@ -692,6 +628,7 @@ app.get('/api/categories', (req, res) => {
 
 // ========== ОБРАБОТКА ОШИБОК ==========
 app.use((req, res) => {
+    console.log(`Маршрут не найден: ${req.method} ${req.path}`);
     res.status(404).json({ error: 'Маршрут не найден' });
 });
 

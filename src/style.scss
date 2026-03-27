@@ -186,22 +186,21 @@ body {
     }
     
     &__image {
-    height: 200px;
-    background: linear-gradient(135deg, #1a1a1a, #000);
-    overflow: hidden;
-    border-bottom: 1px solid $border;
-    
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
+        height: 200px;
+        overflow: hidden;
+        background: linear-gradient(135deg, #1a1a1a, #000);
         
-        &:hover {
-            transform: scale(1.05);
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            
+            &:hover {
+                transform: scale(1.05);
+            }
         }
     }
-}
     
     &__content {
         padding: 20px;
@@ -240,6 +239,10 @@ body {
         font-size: 0.95rem;
         margin: 15px 0;
         line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
     
     &__details {
@@ -395,6 +398,11 @@ body {
     label {
         display: block;
         margin-bottom: 5px;
+        color: $text-secondary;
+    }
+    
+    small {
+        font-size: 0.8rem;
         color: $text-secondary;
     }
 }

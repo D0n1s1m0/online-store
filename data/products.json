@@ -78,7 +78,8 @@
     "description": "SSD внешний, USB-C, скорость чтения 1000MB/s",
     "price": 8990,
     "stock": 18,
-    "rating": 4.5
+    "rating": 4.5,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2TOgfGQTrYhqo64IqsjlQsJVlrG9kxbGoduv5iviHC4tAn7qW7iFqlCoWnDcgJ7u9n_m6l-2e-sMFjN45xPKXRRCDOTTTkkYt0kbEYlhq&s=10"
   },
   {
     "id": "Dr0SCW",

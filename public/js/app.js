@@ -96,6 +96,7 @@ const elements = {
     productPrice: document.getElementById('product-price'),
     productStock: document.getElementById('product-stock'),
     productRating: document.getElementById('product-rating'),
+    productImage: document.getElementById('product-image'),
     modalSubmit: document.getElementById('modal-submit'),
     
     toast: document.getElementById('toast')
@@ -132,6 +133,7 @@ function formatPrice(price) {
 }
 
 function escapeHtml(text) {
+    if (!text) return '';
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
@@ -172,25 +174,13 @@ function renderProducts() {
     }
     
     elements.grid.innerHTML = products.map(product => {
-        // Используем картинку из базы данных
-        const imageUrl = product.image || '/images/product-1.jpg';
+        const imageUrl = product.image || 'https://via.placeholder.com/400x300?text=No+Image';
         
         return `
             <div class="product-card" data-id="${product.id}">
                 <div class="product-card__image">
-    <div style="width:100%; height:100%; background: linear-gradient(135deg, #1a1a1a, #000); display:flex; align-items:center; justify-content:center; font-size:4rem;">
-        ${product.category.includes('Смартфон') ? '📱' : 
-          product.category.includes('Ноутбук') ? '💻' :
-          product.category.includes('Аудио') ? '🎧' :
-          product.category.includes('Планшет') ? '📱' :
-          product.category.includes('Аксессуары') ? '⌚' :
-          product.category.includes('Игры') ? '🎮' :
-          product.category.includes('Монитор') ? '🖥️' :
-          product.category.includes('Клавиатура') ? '⌨️' :
-          product.category.includes('Мышь') ? '🖱️' :
-          product.category.includes('Диск') ? '💾' : '📦'}
-    </div>
-</div>
+                    <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(product.name)}" onerror="this.src='https://via.placeholder.com/400x300?text=Image+Not+Found'">
+                </div>
                 <div class="product-card__content">
                     <div class="product-card__header">
                         <div>
@@ -221,39 +211,6 @@ function renderProducts() {
         `;
     }).join('');
 }
-    elements.grid.innerHTML = products.map(product => `
-        <div class="product-card" data-id="${product.id}">
-            <div class="product-card__image">
-                <i class="fa-solid fa-box"></i>
-            </div>
-            <div class="product-card__content">
-                <div class="product-card__header">
-                    <div>
-                        <h3 class="product-card__title">${escapeHtml(product.name)}</h3>
-                        <span class="product-card__category">${escapeHtml(product.category)}</span>
-                    </div>
-                    <span class="product-card__rating">
-                        <i class="fa-solid fa-star"></i> ${product.rating.toFixed(1)}
-                    </span>
-                </div>
-                <p class="product-card__description">${escapeHtml(product.description)}</p>
-                <div class="product-card__details">
-                    <span class="product-card__price">${formatPrice(product.price)}</span>
-                    <span class="product-card__stock ${product.stock > 10 ? 'product-card__stock--high' : 'product-card__stock--low'}">
-                        ${product.stock > 0 ? `В наличии: ${product.stock}` : 'Нет в наличии'}
-                    </span>
-                </div>
-                <div class="product-card__actions">
-                    <button class="btn btn--primary" onclick="editProduct('${product.id}')">
-                        <i class="fa-solid fa-pen"></i> Изменить
-                    </button>
-                    <button class="btn btn--danger" onclick="deleteProduct('${product.id}')">
-                        <i class="fa-solid fa-trash"></i> Удалить
-                    </button>
-                </div>
-            </div>
-        </div>
-    `).join('');
 
 // ========== CRUD ОПЕРАЦИИ ==========
 window.editProduct = function(id) {
@@ -268,6 +225,7 @@ window.editProduct = function(id) {
     if (elements.productPrice) elements.productPrice.value = product.price;
     if (elements.productStock) elements.productStock.value = product.stock;
     if (elements.productRating) elements.productRating.value = product.rating;
+    if (elements.productImage) elements.productImage.value = product.image || '';
     if (elements.modalSubmit) elements.modalSubmit.textContent = 'Сохранить';
     
     openModal();
@@ -315,7 +273,8 @@ async function handleSubmit(e) {
         description: elements.productDescription ? elements.productDescription.value : '',
         price: elements.productPrice ? Number(elements.productPrice.value) : 0,
         stock: elements.productStock ? Number(elements.productStock.value) || 0 : 0,
-        rating: elements.productRating ? Number(elements.productRating.value) || 0 : 0
+        rating: elements.productRating ? Number(elements.productRating.value) || 0 : 0,
+        image: elements.productImage ? elements.productImage.value : null
     };
     
     try {
