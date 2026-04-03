@@ -485,3 +485,97 @@ textarea {
         text-align: center;
     }
 }
+/* Страницы аутентификации */
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 40px 20px;
+}
+
+.auth-card {
+    background: #141414;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 450px;
+    width: 100%;
+}
+
+    .auth-card h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #00ff88;
+    }
+
+.test-credentials {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(0, 255, 136, 0.1);
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+    .test-credentials p {
+        margin: 5px 0;
+    }
+
+/* Загрузчик */
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid #2a2a2a;
+    border-top-color: #00ff88;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+/* Модальные окна аутентификации */
+.modal--auth {
+    max-width: 450px;
+}
+
+.modal__footer {
+    padding: 15px 20px;
+    border-top: 1px solid #2a2a2a;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Анимация для модальных окон */
+.modal-overlay {
+    animation: fadeIn 0.2s ease;
+}
+
+.modal {
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

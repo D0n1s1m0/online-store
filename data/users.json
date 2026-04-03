@@ -1,0 +1,32 @@
+[
+  {
+    "id": "FCAdW-GK",
+    "email": "admin@store.com",
+    "first_name": "Admin",
+    "last_name": "Adminov",
+    "password_hash": "$2b$10$5WKByET4ksdcAG0CrYV5b.aymKhN8FMtjSuwLzHQI6BWF/lWG2BSC",
+    "role": "admin",
+    "is_active": true,
+    "created_at": "2026-04-02T14:49:39.257Z"
+  },
+  {
+    "id": "zBhr_qbp",
+    "email": "user123@store.ru",
+    "first_name": "zs",
+    "last_name": "asd",
+    "password_hash": "$2b$10$FKj5IKNssGYnJeeQDyIuAe7b0y6lGRnB9R2LYaF3dmcLQAK5UIbta",
+    "role": "seller",
+    "is_active": true,
+    "created_at": "2026-04-02T15:16:40.792Z"
+  },
+  {
+    "id": "QBf-NiGS",
+    "email": "user@store.ru",
+    "first_name": "asd",
+    "last_name": "asdus",
+    "password_hash": "$2b$10$nFzcv2H4qCIAWvdOgOknGOvfthAHo9O6T6KA/Q.CV.8nmWbYyUhku",
+    "role": "user",
+    "is_active": false,
+    "created_at": "2026-04-03T10:09:37.282Z"
+  }
+]
